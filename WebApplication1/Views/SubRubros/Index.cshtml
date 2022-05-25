@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication1.Models.SubRubro>
+
+    @{
+    ViewData["Title"] = "LISTADO DE SUBRUBROS";
+    }
+    <h1>LISTADO DE SUBRUBROS</h1>
+    
+
+    <p>
+       <button type="button" class="btn btn-primary" data-toggle="modal" id="AbrirModal()" data-target="#exampleModal"> Nuevo SubRubro </button>
+    </p>
+    
+
+    <table class="table table-bordered table-hover table-sm">
+
+        <thead class="thead-dark">
+            <tr>
+                <th class="col-md-7 text-center">
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th class="col-md-3 text-center">Rubro</th>
+                <th class="col-md-3 text-center">OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-subrubros">
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Titulo-Modal-SubRubro"> Nuevo Subrubro</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="VaciarFormulario()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="SubRubroID" value="0" />
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"> SUBRUBRO </label>
+                            <input type="email" class="form-control" style="text-transform:uppercase" autocomplete="off" id="SubRubroNombre" @*aria-describedby="rubronuevo" placeholder="Descripcion" *@ />
+                            <p class="text-danger" id="Error-SubRubroNombre"></p>
+                        </div>
+                    </form>
+
+                    <div class="form-group">
+                        <label> RUBRO</label>
+                        @Html.DropDownList("RubroID", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" onclick="VaciarFormulario()" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="GuardaSubRubro()" class="btn btn-outline-success" >Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*ES PARA QUE ANDE EL JS*@
+
+    @section Scripts {
+
+    <script src="~/js/SubRubro.js"></script>
+    <script>
+        window.onload = CompletarTablaSubRubros();
+    </script>
+    }
